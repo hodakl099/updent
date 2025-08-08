@@ -1,6 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:updent/core/config/env.dart';
+import 'package:updent/core/util/strings_constant.dart';
 
-void main() {
+late SharedPreferences prefs;
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize environment variables
+  await Env.init();
+
+  //initialze shared prefs.
+  prefs = await SharedPreferences.getInstance();
+
+  final appLocale = await prefs.getString(LAGUAGE_CODE);
+
   runApp(const MyApp());
 }
 
